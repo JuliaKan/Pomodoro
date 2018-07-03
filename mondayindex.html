@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <style>
+        #tomato {
+            font-size: 180px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="tomato">
+        🍅
+    </div>
+
+    <div id="clock">
+        <ul>
+            <li id="minutesClock"></li>
+            <li>:</li>
+            <li id="secondsClock"></li>
+        </ul>
+    </div>
+    <div id="minutesClock">
+
+    </div>
+    <div id="secondsClock">
+
+    </div>
+
+    <div id="buttons">
+        <button id='start' onclick='start()'>Start</button>
+        <button id ='pause' onclick='pause()'>Pause</button>
+        <button id='reset' onclick='reset()'>Reset</button>
+        
+
+       
+    </div>
+
+    <script>
+
+        let minutesRemaining = 0;
+        let secondsRemaining = 3;
+        const tickDelay = 1000;
+        const minuteTickDelay = 60000;
+
+        function tick() {
+
+            if (secondsRemaining === 0) {
+                minuteTick();
+                secondsReset();
+                tick();
+                
+            }
+            else if(secondsRemaining > 0){
+            
+            // secondsPadding();
+            secondsRemaining -= 1;
+            updateSeconds();
+            setTimeout(tick, tickDelay);
+            }
+        }
+
+
+
+        function minuteTick() {
+
+            minutesRemaining = minutesRemaining - 1;
+            updateMinutes();
+        }
+
+
+        function start() {
+            setTimeout(tick, tickDelay);
+
+            // setTimeout(minuteTick, minuteTickDelay);
+        }
+
+        function updateSeconds() {
+            let secondsClock = document.getElementById('secondsClock');
+            // todo: formatting
+            
+            let displaySeconds = secondsRemaining.toString()
+
+            if (displaySeconds.length === 1) {
+              displaySeconds = "0" + displaySeconds;}
+               secondsClock.textContent = displaySeconds;
+        }
+
+        function updateMinutes() {
+            let minutesClock = document.getElementById('minutesClock');
+            minutesClock.textContent = minutesRemaining;
+        }
+
+        function secondsReset() {
+            // let secondsRemaining = document.getElementById('secondsClock').reset();
+            secondsRemaining = 60;
+
+
+        }
+
+        function playSound () {
+            var audio = new Audio('bell.mp3');
+            audio.play(); 
+        }
+
+        function stopClock() {
+            if (minutesRemaining === 0 && secondsRemaining === 0)
+            alert("zayin")
+        }
+
+        function reset(){
+            minutesRemaining = 25;
+            secondsRemaining = 1;
+        }
+
+
+
+        function pause(){};
+
+        updateSeconds();
+        updateMinutes();
+        playSound();
+        stopClock();
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+#clock li {
+    list-style-type: none;
+    display: inline;
+    
+
+}
+body{
+    background-image: url("tomatoes.JPG");
+    background-size:cover;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#clock{
+    font-size: 50px;
+}
+#start{
+    height:50px;
+    width:150px;
+    border-radius:10px;
+    font-size:40px;
+    color: darkgreen;
+    background-color: beige;
+
+
+}
+#pause{
+    height:50px;
+    width:150px;
+    border-radius:10px;
+    font-size:40px;
+    color: darkgreen;
+    background-color: beige;
+}
+#reset{
+    height:50px;
+    width:150px;
+    border-radius:10px;
+    font-size:40px;
+    color: darkgreen;
+    background-color: beige;
+}

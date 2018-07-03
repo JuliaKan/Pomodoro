@@ -1,2 +1,2 @@
-# Pomodoro
-Tomato Timer
+# pomodoro
+countdown timer web app
