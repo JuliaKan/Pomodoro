@@ -34,24 +34,37 @@
 
     <script>
 
-        let minutesRemaining = 0;
-        let secondsRemaining = 5;
+        let minutesRemaining = 25;
+        let secondsRemaining = 0;
         const tickDelay = 1000;
         const minuteTickDelay = 60000;
+        let pauseFlag = false;
+        let preventMultipleTicksFlag = false;
+        
+        
         
         //main functions
         function tick() {
+            if (pauseFlag === true){
+                return;
+            }
             //timer stops and plays sound when it gets to 0 
             if ((secondsRemaining === 0) && (minutesRemaining === 0)) {
                 playSound();
-                return ;
-                
+                document.getElementById("reset").disabled = false;
+                return;
             }
+            
+            
+           
+                
+            
             //timer counts down by one second
             else if(secondsRemaining > 0){
             secondsRemaining -= 1;
             updateSeconds()
             setTimeout(tick, tickDelay);
+
             }
 
             //when seconds are at 0, minute timer ticks down one tick
@@ -68,9 +81,27 @@
             updateMinutes();
         }
 
-        //not sure what this is!!
+        //this starts the countdown by calling it in the HTML. This checks if pause is clicked. doesn't allow for multiple clicks on start.
         function start() {
-            setTimeout(tick, tickDelay);
+            if (preventMultipleTicksFlag === true){
+                return;
+            }
+            pauseFlag = false;
+            document.getElementById("reset").disabled = true;
+            setTimeout(tick, tickDelay); 
+            preventMultipleTicksFlag = true;
+            
+            
+        }
+
+        function pause(){
+            pauseFlag = true;
+            document.getElementById("reset").disabled = false;
+            preventMultipleTicksFlag = false;
+
+
+
+
         }
 
         //after seconds timer ticks down one, this updates the seconds
@@ -101,21 +132,20 @@
             audio.play(); 
         }
 
-        //TO DO
-        function stopClock() {
-
-        }
+       
         
-        //TO DO
+        //resets the time to 25:00
         function reset(){
+            preventMultipleTicksFlag = false;
             minutesRemaining = 25;
-            secondsRemaining = 1;
+            secondsRemaining = 0;
+            updateSeconds();
+            updateMinutes();
         }
         
-        //TO DO
-        function pause(){};
+        
 
-        //RECALLS FUNCTIONS, NOT SURE WHY
+        //Sets the clock
         updateSeconds();
         updateMinutes();
       
